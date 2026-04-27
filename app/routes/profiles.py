@@ -1,5 +1,5 @@
-from typing import Annotated
 import secrets
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -96,7 +96,6 @@ def list_profiles(
 def profile_detail(
     id: str, request: Request, ctx: Annotated[dict, Depends(get_portal_context)]
 ):
-    import secrets
 
     client = ctx["client"]
     profile = client.get(f"/api/profiles/{id}").json().get("data", {})
