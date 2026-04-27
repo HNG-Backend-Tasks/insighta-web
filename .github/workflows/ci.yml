@@ -28,4 +28,4 @@ jobs:
           API_BASE_URL: http://localhost:8000
           GITHUB_CLIENT_ID: fake-client-id
           GITHUB_CLIENT_SECRET: fake-client-secret
-          SECRET_KEY=fake-secret-key
+          SECRET_KEY: fake-secret-key
