@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Account — Insighta Labs+{% endblock %}
+
+{% block content %}
+<h2>Account</h2>
+
+<table>
+    <tbody>
+        <tr><th>Username</th><td>@{{ user.username }}</td></tr>
+        <tr><th>Email</th><td>{{ user.email }}</td></tr>
+        <tr><th>Role</th><td>{{ user.role }}</td></tr>
+        <tr><th>Member since</th><td>{{ user.created_at }}</td></tr>
+    </tbody>
+</table>
+
+<a href="/logout" role="button" class="outline">Logout</a>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Profiles — Insighta Labs+{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Profiles</h2>
+    {% if user.role == "admin" %}
+    <a href="/profiles/create" role="button">+ New Profile</a>
+    {% endif %}
+</div>
+
+<form method="get" action="/profiles">
+    <div class="grid">
+        <input type="text" name="gender" placeholder="Gender" value="{{ filters.gender or '' }}">
+        <input type="text" name="country_id" placeholder="Country (e.g. NG)" value="{{ filters.country_id or '' }}">
+        <input type="text" name="age_group" placeholder="Age group" value="{{ filters.age_group or '' }}">
+        <button type="submit">Filter</button>
+    </div>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Age Group</th>
+            <th>Country</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for profile in profiles %}
+        <tr>
+            <td>{{ profile.name }}</td>
+            <td>{{ profile.gender }}</td>
+            <td>{{ profile.age }}</td>
+            <td>{{ profile.age_group }}</td>
+            <td>{{ profile.country_id }}</td>
+            <td><a href="/profiles/{{ profile.id }}">View</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="display: flex; gap: 1rem; margin-top: 1rem;">
+    {% if links.prev %}
+    <a href="{{ links.prev }}" role="button" class="outline">Previous</a>
+    {% endif %}
+    {% if links.next %}
+    <a href="{{ links.next }}" role="button" class="outline">Next</a>
+    {% endif %}
+</div>
+<small>Page {{ page }} of {{ total_pages }} ({{ total }} total)</small>
+{% endblock %}

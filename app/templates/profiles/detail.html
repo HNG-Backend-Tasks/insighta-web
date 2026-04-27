@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ profile.name }} — Insighta Labs+{% endblock %}
+
+{% block content %}
+<a href="/profiles">← Back to profiles</a>
+<h2>{{ profile.name }}</h2>
+
+<table>
+    <tbody>
+        <tr><th>Gender</th><td>{{ profile.gender }} ({{ profile.gender_probability }})</td></tr>
+        <tr><th>Age</th><td>{{ profile.age }} ({{ profile.age_group }})</td></tr>
+        <tr><th>Country</th><td>{{ profile.country_name }} ({{ profile.country_id }})</td></tr>
+        <tr><th>Country Probability</th><td>{{ profile.country_probability }}</td></tr>
+        <tr><th>Created</th><td>{{ profile.created_at }}</td></tr>
+    </tbody>
+</table>
+
+{% if user.role == "admin" %}
+<form method="post" action="/profiles/{{ profile.id }}/delete">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit" style="background: red; border-color: red;">Delete Profile</button>
+</form>
+{% endif %}
+{% endblock %}

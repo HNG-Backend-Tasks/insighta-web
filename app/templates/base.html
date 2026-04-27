@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Insighta Labs+{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav class="container">
+        <ul>
+            <li><strong>Insighta Labs+</strong></li>
+        </ul>
+        <ul>
+            {% if user %}
+            <li><a href="/profiles">Profiles</a></li>
+            <li><a href="/search">Search</a></li>
+            <li><a href="/account">Account</a></li>
+            <li><a href="/logout">Logout</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <main class="container">
+        {% if error %}
+        <article style="border-left: 4px solid red;">
+            {{ error }}
+        </article>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="container">
+        <small>Insighta Labs+ &copy; 2026</small>
+    </footer>
+</body>
+</html>

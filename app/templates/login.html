@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Insighta Labs+{% endblock %}
+
+{% block content %}
+<article style="max-width: 400px; margin: 80px auto;">
+    <header>
+        <h2>Welcome to Insighta Labs+</h2>
+        <p>Sign in to access the platform.</p>
+    </header>
+    <a href="/auth/github" role="button">
+        Continue with GitHub
+    </a>
+    {% if request.query_params.get('error') %}
+    <small style="color: red;">
+        Authentication failed. Please try again.
+    </small>
+    {% endif %}
+</article>
+{% endblock %}

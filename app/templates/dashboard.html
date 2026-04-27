@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Insighta Labs+{% endblock %}
+
+{% block content %}
+<h2>Dashboard</h2>
+<div class="grid">
+    <article>
+        <h3>{{ metrics.total }}</h3>
+        <p>Total Profiles</p>
+    </article>
+    <article>
+        <h3>{{ metrics.male }}</h3>
+        <p>Male</p>
+    </article>
+    <article>
+        <h3>{{ metrics.female }}</h3>
+        <p>Female</p>
+    </article>
+</div>
+
+<p><a href="/profiles" role="button" class="outline">View All Profiles</a></p>
+{% endblock %}
