@@ -1,4 +1,5 @@
 from typing import Annotated
+import secrets
 
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -7,6 +8,16 @@ from ..dependencies import get_portal_context
 from ..templates_config import templates
 
 router = APIRouter()
+
+def rewrite_links(links: dict) -> dict:
+    result = {}
+    for key, url in links.items():
+        if url:
+            # replace /api/profiles with /profiles
+            result[key] = url.replace("/api/profiles", "/profiles")
+        else:
+            result[key] = None
+    return result
 
 
 @router.get("/dashboard", response_class=HTMLResponse)
@@ -144,14 +155,3 @@ def account(request: Request, ctx: dict = Depends(get_portal_context)):
             "user": ctx["user"],
         },
     )
-
-
-def rewrite_links(links: dict) -> dict:
-    result = {}
-    for key, url in links.items():
-        if url:
-            # replace /api/profiles with /profiles
-            result[key] = url.replace("/api/profiles", "/profiles")
-        else:
-            result[key] = None
-    return result
