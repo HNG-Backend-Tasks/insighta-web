@@ -48,6 +48,15 @@ def dashboard(request: Request, ctx: Annotated[dict, Depends(get_portal_context)
         },
     )
 
+@router.get("/profiles/create", response_class=HTMLResponse)
+def create_profile_page(request: Request, ctx: Annotated[dict, Depends(get_portal_context)]):
+    return templates.TemplateResponse(request, "profiles/create.html", {"user": ctx["user"]})
+
+@router.post("/profiles/create")
+async def create_profile(request: Request, ctx: dict = Depends(get_portal_context)):
+    form = await request.form()
+    ctx["client"].post("/api/profiles", json={"name": form.get("name")})
+    return RedirectResponse(url="/profiles", status_code=302)
 
 @router.get("/profiles", response_class=HTMLResponse)
 def list_profiles(

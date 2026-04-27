@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Create Profile — Insighta Labs+{% endblock %}
+{% block content %}
+<h2>Create Profile</h2>
+<form method="post" action="/profiles/create">
+    <input type="text" name="name" placeholder="Enter name" required>
+    <button type="submit">Create</button>
+</form>
+{% endblock %}

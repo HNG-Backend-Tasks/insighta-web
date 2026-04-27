@@ -59,8 +59,13 @@ async def github_callback(request: Request, code: str, state: str):
         return redirect
 
 
-@router.get("/logout")
 def logout(request: Request):
+    refresh_token = request.cookies.get("refresh_token")
+    if refresh_token:
+        import httpx
+        with httpx.Client(base_url=settings.BACKEND_URL) as client:
+            client.post("/auth/logout", json={"refresh_token": refresh_token})
+
     response = RedirectResponse(url="/login")
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
