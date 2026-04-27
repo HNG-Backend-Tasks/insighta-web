@@ -120,7 +120,7 @@ def search(request: Request, ctx: dict = Depends(get_portal_context), q: str = N
     client = ctx["client"]
     profiles = []
 
-    if q:
+    if q and q.strip():
         body = client.get("/api/profiles/search", params={"q": q}).json()
         profiles = body.get("data", [])
 
@@ -130,7 +130,7 @@ def search(request: Request, ctx: dict = Depends(get_portal_context), q: str = N
         {
             "user": ctx["user"],
             "profiles": profiles,
-            "query": q,
+            "query": q if q else "",
         },
     )
 

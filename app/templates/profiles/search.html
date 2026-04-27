@@ -6,38 +6,44 @@
 <h2>Search Profiles</h2>
 
 <form method="get" action="/search">
-    <div style="display: flex; gap: 1rem;">
-        <input type="text" name="q" placeholder="e.g. young males from nigeria" value="{{ query or '' }}" style="flex: 1;">
-        <button type="submit">Search</button>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+        <input 
+            type="text" 
+            name="q" 
+            placeholder="e.g. young males from nigeria" 
+            value="{{ query or '' }}" 
+            style="flex: 1; margin-bottom: 0;"
+        >
+        <button type="submit" style="width: auto; margin-bottom: 0;">Search</button>
     </div>
 </form>
 
-{% if profiles is defined %}
-{% if profiles %}
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>Country</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for profile in profiles %}
-        <tr>
-            <td>{{ profile.name }}</td>
-            <td>{{ profile.gender }}</td>
-            <td>{{ profile.age }}</td>
-            <td>{{ profile.country_id }}</td>
-            <td><a href="/profiles/{{ profile.id }}">View</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% else %}
-<p>No results found for "{{ query }}".</p>
-{% endif %}
-{% endif %}
+{% if query %}
+    {% if profiles %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Country</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profile in profiles %}
+            <tr>
+                <td>{{ profile.name }}</td>
+                <td>{{ profile.gender }}</td>
+                <td>{{ profile.age }}</td>
+                <td>{{ profile.country_id }}</td>
+                <td><a href="/profiles/{{ profile.id }}">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No results found for "{{ query }}".</p>
+    {% endif %}
+    {% endif %}
 {% endblock %}
