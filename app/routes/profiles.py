@@ -9,6 +9,7 @@ from ..templates_config import templates
 
 router = APIRouter()
 
+
 def rewrite_links(links: dict) -> dict:
     result = {}
     for key, url in links.items():
@@ -96,7 +97,6 @@ def list_profiles(
 def profile_detail(
     id: str, request: Request, ctx: Annotated[dict, Depends(get_portal_context)]
 ):
-
     client = ctx["client"]
     profile = client.get(f"/api/profiles/{id}").json().get("data", {})
     csrf_token = secrets.token_urlsafe(16)
