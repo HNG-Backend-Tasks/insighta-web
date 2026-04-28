@@ -38,7 +38,7 @@ async def github_callback(request: Request, code: str, state: str):
     if state != request.session.get("oauth_state"):
         return RedirectResponse(url="/login?error=state_mismatch")
 
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=10.0) as client:
         response = await client.get(
             f"{settings.BACKEND_URL}/auth/github/callback",
             params={"code": code, "state": state, "code_verifier": ""},
@@ -63,7 +63,7 @@ def logout(request: Request):
     refresh_token = request.cookies.get("refresh_token")
     if refresh_token:
         import httpx
-        with httpx.Client(base_url=settings.BACKEND_URL) as client:
+        with httpx.Client(base_url=settings.BACKEND_URL, timeout=10.0) as client:
             client.post("/auth/logout", json={"refresh_token": refresh_token})
 
     response = RedirectResponse(url="/login")
